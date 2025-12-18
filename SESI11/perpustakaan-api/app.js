@@ -1,6 +1,9 @@
 const express = require('express');
 const db = require('./db');
 const logging = require('./middleware/logging');
+const executionTime = require('./middleware/executionTime');
+const jamAkses = require('./middleware/jamAkses');
+
 
 const app = express();
 app.use(express.json());
@@ -115,3 +118,10 @@ app.delete('/buku/:id', auth, (req, res) => {
     res.json({ message: 'Data berhasil dihapus' });
   });
 });
+
+app.use(executionTime);
+app.use(jamAkses);
+app.use(express.json());
+app.use(logging);
+app.use(executionTime);
+app.use(jamAkses);
